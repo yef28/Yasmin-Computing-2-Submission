@@ -1,0 +1,128 @@
+body {
+    font-family: system-ui, sans-serif;
+    max-width: 32rem;
+    margin: 2rem auto;
+    text-align: center;
+    color: #1a1a1a;
+    background: #f4f1ea;
+}
+
+h1 {
+    margin-bottom: 0.25rem;
+}
+
+#status {
+    min-height: 1.5rem;
+    font-weight: bold;
+}
+
+#board {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 0.35rem;
+    justify-content: center;
+    margin: 1.5rem auto;
+}
+
+/* Every cell, including off-board gaps, takes up the same grid space
+   so the cross shape of the board lines up correctly. */
+.cell {
+    width: 2.5rem;
+    height: 2.5rem;
+    padding: 0;
+    border-radius: 50%;
+    box-sizing: border-box;
+}
+
+.off-board {
+    background: none;
+    border: none;
+}
+
+/* Pegs and holes are told apart by SHAPE (solid vs. hollow circle),
+   not just colour, so the board still reads correctly for
+   colour-blind players. */
+.peg {
+    background: #4a6b3a;
+    border: 3px solid #2f4a24;
+    cursor: pointer;
+}
+
+.hole {
+    background: #f4f1ea;
+    border: 3px solid #8a8578;
+    cursor: pointer;
+}
+
+.selected {
+    outline: 3px solid #d98c1f;
+    outline-offset: 2px;
+}
+
+/* Clear keyboard-focus indicator, separate from mouse hover, so the
+   board is usable without a mouse. */
+.cell:focus-visible {
+    outline: 3px solid #1a66cc;
+    outline-offset: 2px;
+}
+
+.peg:hover {
+    background: #3d5a2f;
+}
+
+#restart {
+    font-size: 1rem;
+    padding: 0.5rem 1.25rem;
+    border-radius: 0.4rem;
+    border: 2px solid #2f4a24;
+    background: #4a6b3a;
+    color: white;
+    cursor: pointer;
+    position: relative;
+    z-index: 20;
+}
+
+#restart:hover {
+    background: #3d5a2f;
+}
+
+#restart:focus-visible {
+    outline: 3px solid #1a66cc;
+    outline-offset: 2px;
+}
+
+/* Full-screen message shown when the game ends, so the outcome is
+   unmistakable and nothing else distracts from it. The restart
+   button sits at a higher z-index (above), so it always stays
+   clickable even while this overlay is covering the board. */
+.overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    text-align: center;
+    background: rgba(26, 26, 26, 0.92);
+}
+
+.overlay.hidden {
+    display: none;
+}
+
+#overlay-message {
+    color: white;
+    font-size: 2.25rem;
+    font-weight: bold;
+    line-height: 1.4;
+    max-width: 28rem;
+}
+
+.overlay.won #overlay-message {
+    color: #8fd17a;
+}
+
+.overlay.stuck #overlay-message {
+    color: #e0a94c;
+}
