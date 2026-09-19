@@ -29,7 +29,7 @@
 <nav >
     
     
-    <h2><a href="index.html">Home</a></h2><h3>Namespaces</h3><ul><li><a href="PegSolitaire.Setup.html">Setup</a><ul class='methods'><li data-type='method'><a href="PegSolitaire.Setup.html#.createBoard">createBoard</a></li></ul></li><li><a href="PegSolitaire.Moves.html">Moves</a><ul class='methods'><li data-type='method'><a href="PegSolitaire.Moves.html#.isValidMove">isValidMove</a></li><li data-type='method'><a href="PegSolitaire.Moves.html#.applyMove">applyMove</a></li><li data-type='method'><a href="PegSolitaire.Moves.html#.validMoves">validMoves</a></li></ul></li><li><a href="PegSolitaire.Info.html">Info</a><ul class='methods'><li data-type='method'><a href="PegSolitaire.Info.html#.isOnBoard">isOnBoard</a></li><li data-type='method'><a href="PegSolitaire.Info.html#.getCell">getCell</a></li><li data-type='method'><a href="PegSolitaire.Info.html#.pegCount">pegCount</a></li><li data-type='method'><a href="PegSolitaire.Info.html#.isWon">isWon</a></li><li data-type='method'><a href="PegSolitaire.Info.html#.isGameOver">isGameOver</a></li><li data-type='method'><a href="PegSolitaire.Info.html#.getBoardSize">getBoardSize</a></li><li data-type='method'><a href="PegSolitaire.Info.html#.getAllPositions">getAllPositions</a></li></ul></li><li><a href="PegSolitaire.Display.html">Display</a><ul class='methods'><li data-type='method'><a href="PegSolitaire.Display.html#.boardToString">boardToString</a></li></ul></li></ul><h3>Global</h3><ul><li><a href="global.html#Position">Position</a></li><li><a href="global.html#Board">Board</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Namespaces</h3><ul><li><a href="PegSolitaire.Setup.html">Setup</a><ul class='methods'><li data-type='method'><a href="PegSolitaire.Setup.html#.createBoard">createBoard</a></li></ul></li><li><a href="PegSolitaire.Moves.html">Moves</a><ul class='methods'><li data-type='method'><a href="PegSolitaire.Moves.html#.isValidMove">isValidMove</a></li><li data-type='method'><a href="PegSolitaire.Moves.html#.applyMove">applyMove</a></li><li data-type='method'><a href="PegSolitaire.Moves.html#.validMoves">validMoves</a></li></ul></li><li><a href="PegSolitaire.Info.html">Info</a><ul class='methods'><li data-type='method'><a href="PegSolitaire.Info.html#.isOnBoard">isOnBoard</a></li><li data-type='method'><a href="PegSolitaire.Info.html#.getCell">getCell</a></li><li data-type='method'><a href="PegSolitaire.Info.html#.getAllPositions">getAllPositions</a></li><li data-type='method'><a href="PegSolitaire.Info.html#.pegCount">pegCount</a></li><li data-type='method'><a href="PegSolitaire.Info.html#.isWon">isWon</a></li><li data-type='method'><a href="PegSolitaire.Info.html#.isGameOver">isGameOver</a></li><li data-type='method'><a href="PegSolitaire.Info.html#.getBoardSize">getBoardSize</a></li></ul></li><li><a href="PegSolitaire.Display.html">Display</a><ul class='methods'><li data-type='method'><a href="PegSolitaire.Display.html#.boardToString">boardToString</a></li></ul></li></ul><h3>Global</h3><ul><li><a href="global.html#Position">Position</a></li><li><a href="global.html#Board">Board</a></li></ul>
     
 </nav>
 
@@ -516,6 +516,113 @@ changing it.</p></li></ul></dd>
 
     
 
+    <h4 class="name" id=".getAllPositions"><span class="type-signature type-signature-static">(static) </span>getAllPositions<span class="signature">()</span><span class="type-signature"> &rarr; {Array.&lt;<a href="global.html#Position">Position</a>>}</span></h4>
+
+    
+
+
+
+
+<dl class="details">
+    
+    <dt class="tag-description">Description:</dt>
+    <dd class="tag-description"><ul class="dummy"><li><p>Returns every position that is actually part of the board (i.e.
+every position for which <code>isOnBoard</code> is true), in row-major order.
+Intended for use by the UI when it needs to draw or iterate over
+the board without knowing anything about its cross shape itself.</p></li></ul></dd>
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="PegSolitaire.js.html">PegSolitaire.js</a>, <a href="PegSolitaire.js.html#line236">line 236</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5 class="h5-returns">Returns:</h5>
+
+        
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Array.&lt;<a href="global.html#Position">Position</a>></span>
+
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
     <h4 class="name" id=".pegCount"><span class="type-signature type-signature-static">(static) </span>pegCount<span class="signature">(board)</span><span class="type-signature"> &rarr; {number}</span></h4>
 
     
@@ -532,7 +639,7 @@ changing it.</p></li></ul></dd>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="PegSolitaire.js.html">PegSolitaire.js</a>, <a href="PegSolitaire.js.html#line257">line 257</a>
+        <a href="PegSolitaire.js.html">PegSolitaire.js</a>, <a href="PegSolitaire.js.html#line275">line 275</a>
     </li></ul></dd>
     
 
@@ -686,7 +793,7 @@ changing it.</p></li></ul></dd>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="PegSolitaire.js.html">PegSolitaire.js</a>, <a href="PegSolitaire.js.html#line269">line 269</a>
+        <a href="PegSolitaire.js.html">PegSolitaire.js</a>, <a href="PegSolitaire.js.html#line287">line 287</a>
     </li></ul></dd>
     
 
@@ -840,7 +947,7 @@ changing it.</p></li></ul></dd>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="PegSolitaire.js.html">PegSolitaire.js</a>, <a href="PegSolitaire.js.html#line279">line 279</a>
+        <a href="PegSolitaire.js.html">PegSolitaire.js</a>, <a href="PegSolitaire.js.html#line297">line 297</a>
     </li></ul></dd>
     
 
@@ -996,7 +1103,7 @@ UI can lay out a grid without hard-coding the board's shape.</p></li></ul></dd>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="PegSolitaire.js.html">PegSolitaire.js</a>, <a href="PegSolitaire.js.html#line290">line 290</a>
+        <a href="PegSolitaire.js.html">PegSolitaire.js</a>, <a href="PegSolitaire.js.html#line308">line 308</a>
     </li></ul></dd>
     
 
@@ -1080,113 +1187,6 @@ UI can lay out a grid without hard-coding the board's shape.</p></li></ul></dd>
 
 
         
-            
-
-    
-
-    <h4 class="name" id=".getAllPositions"><span class="type-signature type-signature-static">(static) </span>getAllPositions<span class="signature">()</span><span class="type-signature"> &rarr; {Array.&lt;<a href="global.html#Position">Position</a>>}</span></h4>
-
-    
-
-
-
-
-<dl class="details">
-    
-    <dt class="tag-description">Description:</dt>
-    <dd class="tag-description"><ul class="dummy"><li><p>Returns every position that is actually part of the board (i.e.
-every position for which <code>isOnBoard</code> is true), in row-major order.
-Intended for use by the UI when it needs to draw or iterate over
-the board without knowing anything about its cross shape itself.</p></li></ul></dd>
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="PegSolitaire.js.html">PegSolitaire.js</a>, <a href="PegSolitaire.js.html#line302">line 302</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5 class="h5-returns">Returns:</h5>
-
-        
-
-
-<dl class="param-type">
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Array.&lt;<a href="global.html#Position">Position</a>></span>
-
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-        
     
 
     
@@ -1206,7 +1206,7 @@ the board without knowing anything about its cross shape itself.</p></li></ul></
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.5</a> on Thu Sep 17 2026 18:49:30 GMT+0100 (British Summer Time) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.5</a> on Sat Sep 19 2026 14:22:10 GMT+0100 (British Summer Time) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
 </footer>
 
 <script>prettyPrint();</script>

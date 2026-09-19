@@ -226,26 +226,44 @@ function movesFrom(board, from) {
 }
 
 /**
- * Returns every legal move available on the given board.
- * @memberof PegSolitaire.Moves
- * @param {Board} board
- * @returns {Array.<{from: Position, to: Position}>}
+ * Returns every position that is actually part of the board (i.e.
+ * every position for which `isOnBoard` is true), in row-major order.
+ * Intended for use by the UI when it needs to draw or iterate over
+ * the board without knowing anything about its cross shape itself.
+ * @memberof PegSolitaire.Info
+ * @returns {Position[]}
  */
-function validMoves(board) {
-    const moves = [];
+function getAllPositions() {
+    const positions = [];
     let row = 0;
     while (row < SIZE) {
         let col = 0;
         while (col < SIZE) {
-            const from = {row, col};
-            if (getCell(board, from) === true) {
-                moves.push(...movesFrom(board, from));
+            const position = {row, col};
+            if (isOnBoard(position)) {
+                positions.push(position);
             }
             col += 1;
         }
         row += 1;
     }
-    return moves;
+    return positions;
+}
+
+/**
+ * Returns every legal move available on the given board: every
+ * peg's position is mapped to the (possibly empty) list of moves it
+ * can make, and flatMap combines all of those lists into one.
+ * @memberof PegSolitaire.Moves
+ * @param {Board} board
+ * @returns {Array.<{from: Position, to: Position}>}
+ */
+function validMoves(board) {
+    return getAllPositions().filter(function (position) {
+        return getCell(board, position) === true;
+    }).flatMap(function (from) {
+        return movesFrom(board, from);
+    });
 }
 
 /**
@@ -289,31 +307,6 @@ function isGameOver(board) {
  */
 function getBoardSize() {
     return SIZE;
-}
-
-/**
- * Returns every position that is actually part of the board (i.e.
- * every position for which `isOnBoard` is true), in row-major order.
- * Intended for use by the UI when it needs to draw or iterate over
- * the board without knowing anything about its cross shape itself.
- * @memberof PegSolitaire.Info
- * @returns {Position[]}
- */
-function getAllPositions() {
-    const positions = [];
-    let row = 0;
-    while (row < SIZE) {
-        let col = 0;
-        while (col < SIZE) {
-            const position = {row, col};
-            if (isOnBoard(position)) {
-                positions.push(position);
-            }
-            col += 1;
-        }
-        row += 1;
-    }
-    return positions;
 }
 
 /**

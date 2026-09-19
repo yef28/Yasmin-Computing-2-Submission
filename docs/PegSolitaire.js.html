@@ -29,7 +29,7 @@
 <nav >
     
     
-    <h2><a href="index.html">Home</a></h2><h3>Namespaces</h3><ul><li><a href="PegSolitaire.Setup.html">Setup</a><ul class='methods'><li data-type='method'><a href="PegSolitaire.Setup.html#.createBoard">createBoard</a></li></ul></li><li><a href="PegSolitaire.Moves.html">Moves</a><ul class='methods'><li data-type='method'><a href="PegSolitaire.Moves.html#.isValidMove">isValidMove</a></li><li data-type='method'><a href="PegSolitaire.Moves.html#.applyMove">applyMove</a></li><li data-type='method'><a href="PegSolitaire.Moves.html#.validMoves">validMoves</a></li></ul></li><li><a href="PegSolitaire.Info.html">Info</a><ul class='methods'><li data-type='method'><a href="PegSolitaire.Info.html#.isOnBoard">isOnBoard</a></li><li data-type='method'><a href="PegSolitaire.Info.html#.getCell">getCell</a></li><li data-type='method'><a href="PegSolitaire.Info.html#.pegCount">pegCount</a></li><li data-type='method'><a href="PegSolitaire.Info.html#.isWon">isWon</a></li><li data-type='method'><a href="PegSolitaire.Info.html#.isGameOver">isGameOver</a></li><li data-type='method'><a href="PegSolitaire.Info.html#.getBoardSize">getBoardSize</a></li><li data-type='method'><a href="PegSolitaire.Info.html#.getAllPositions">getAllPositions</a></li></ul></li><li><a href="PegSolitaire.Display.html">Display</a><ul class='methods'><li data-type='method'><a href="PegSolitaire.Display.html#.boardToString">boardToString</a></li></ul></li></ul><h3>Global</h3><ul><li><a href="global.html#Position">Position</a></li><li><a href="global.html#Board">Board</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Namespaces</h3><ul><li><a href="PegSolitaire.Setup.html">Setup</a><ul class='methods'><li data-type='method'><a href="PegSolitaire.Setup.html#.createBoard">createBoard</a></li></ul></li><li><a href="PegSolitaire.Moves.html">Moves</a><ul class='methods'><li data-type='method'><a href="PegSolitaire.Moves.html#.isValidMove">isValidMove</a></li><li data-type='method'><a href="PegSolitaire.Moves.html#.applyMove">applyMove</a></li><li data-type='method'><a href="PegSolitaire.Moves.html#.validMoves">validMoves</a></li></ul></li><li><a href="PegSolitaire.Info.html">Info</a><ul class='methods'><li data-type='method'><a href="PegSolitaire.Info.html#.isOnBoard">isOnBoard</a></li><li data-type='method'><a href="PegSolitaire.Info.html#.getCell">getCell</a></li><li data-type='method'><a href="PegSolitaire.Info.html#.getAllPositions">getAllPositions</a></li><li data-type='method'><a href="PegSolitaire.Info.html#.pegCount">pegCount</a></li><li data-type='method'><a href="PegSolitaire.Info.html#.isWon">isWon</a></li><li data-type='method'><a href="PegSolitaire.Info.html#.isGameOver">isGameOver</a></li><li data-type='method'><a href="PegSolitaire.Info.html#.getBoardSize">getBoardSize</a></li></ul></li><li><a href="PegSolitaire.Display.html">Display</a><ul class='methods'><li data-type='method'><a href="PegSolitaire.Display.html#.boardToString">boardToString</a></li></ul></li></ul><h3>Global</h3><ul><li><a href="global.html#Position">Position</a></li><li><a href="global.html#Board">Board</a></li></ul>
     
 </nav>
 
@@ -273,26 +273,44 @@ function movesFrom(board, from) {
 }
 
 /**
- * Returns every legal move available on the given board.
- * @memberof PegSolitaire.Moves
- * @param {Board} board
- * @returns {Array.&lt;{from: Position, to: Position}>}
+ * Returns every position that is actually part of the board (i.e.
+ * every position for which `isOnBoard` is true), in row-major order.
+ * Intended for use by the UI when it needs to draw or iterate over
+ * the board without knowing anything about its cross shape itself.
+ * @memberof PegSolitaire.Info
+ * @returns {Position[]}
  */
-function validMoves(board) {
-    const moves = [];
+function getAllPositions() {
+    const positions = [];
     let row = 0;
     while (row &lt; SIZE) {
         let col = 0;
         while (col &lt; SIZE) {
-            const from = {row, col};
-            if (getCell(board, from) === true) {
-                moves.push(...movesFrom(board, from));
+            const position = {row, col};
+            if (isOnBoard(position)) {
+                positions.push(position);
             }
             col += 1;
         }
         row += 1;
     }
-    return moves;
+    return positions;
+}
+
+/**
+ * Returns every legal move available on the given board: every
+ * peg's position is mapped to the (possibly empty) list of moves it
+ * can make, and flatMap combines all of those lists into one.
+ * @memberof PegSolitaire.Moves
+ * @param {Board} board
+ * @returns {Array.&lt;{from: Position, to: Position}>}
+ */
+function validMoves(board) {
+    return getAllPositions().filter(function (position) {
+        return getCell(board, position) === true;
+    }).flatMap(function (from) {
+        return movesFrom(board, from);
+    });
 }
 
 /**
@@ -336,31 +354,6 @@ function isGameOver(board) {
  */
 function getBoardSize() {
     return SIZE;
-}
-
-/**
- * Returns every position that is actually part of the board (i.e.
- * every position for which `isOnBoard` is true), in row-major order.
- * Intended for use by the UI when it needs to draw or iterate over
- * the board without knowing anything about its cross shape itself.
- * @memberof PegSolitaire.Info
- * @returns {Position[]}
- */
-function getAllPositions() {
-    const positions = [];
-    let row = 0;
-    while (row &lt; SIZE) {
-        let col = 0;
-        while (col &lt; SIZE) {
-            const position = {row, col};
-            if (isOnBoard(position)) {
-                positions.push(position);
-            }
-            col += 1;
-        }
-        row += 1;
-    }
-    return positions;
 }
 
 /**
@@ -417,8 +410,7 @@ export {
     getBoardSize,
     getAllPositions,
     boardToString
-};
-</code></pre>
+};</code></pre>
         </article>
     </section>
 
@@ -432,7 +424,7 @@ export {
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.5</a> on Thu Sep 17 2026 18:49:30 GMT+0100 (British Summer Time) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.5</a> on Sat Sep 19 2026 14:22:10 GMT+0100 (British Summer Time) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
 </footer>
 
 <script>prettyPrint();</script>
